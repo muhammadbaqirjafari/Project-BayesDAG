@@ -447,6 +447,16 @@ class BayesDAGNonLinear(BayesDAG):
                 print("New best model found. Saving Checkpoint")
                 prev_best = 0
                 self.save(best=True)
+
+                M = 100
+                graphs, _ = self.get_adj_matrix(samples=M, squeeze=False)
+                probs = graphs.mean(axis=0)  # shape: num_nodes × num_nodes
+
+                import pandas as pd, os
+                df = pd.DataFrame(probs)
+                csv_path = os.path.join(self.save_dir, "best_edge_probabilities.csv")
+                df.to_csv(csv_path, index=False)
+                print(f"Saved best edge probabilities to {csv_path}")
             else:
                 prev_best +=1
             if step % 4 == 0:
