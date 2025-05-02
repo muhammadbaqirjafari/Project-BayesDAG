@@ -405,14 +405,15 @@ class BayesDAGNonLinear(BayesDAG):
             train_config_dict: Dictionary with training hyperparameters.
             report_progress_callback: Optional callback function to report training progress.
         """
+        import os as _os
         if train_config_dict is None:
             train_config_dict = {}
         dataloader, _ = self._create_dataset_for_bayesdag(dataset, train_config_dict)
 
         # initialise logging machinery
-        train_output_dir = os.path.join(self.save_dir, "train_output")
-        os.makedirs(train_output_dir, exist_ok=True)
-        log_path = os.path.join(train_output_dir, "summary")
+        train_output_dir = _os.path.join(self.save_dir, "train_output")
+        _os.makedirs(train_output_dir, exist_ok=True)
+        log_path = _os.path.join(train_output_dir, "summary")
         writer = SummaryWriter(log_path, flush_secs=1)
 
         print("Saving logs to", log_path, flush=True)
@@ -454,7 +455,7 @@ class BayesDAGNonLinear(BayesDAG):
 
                 import pandas as pd, os
                 df = pd.DataFrame(probs)
-                csv_path = os.path.join(self.save_dir, "best_edge_probabilities.csv")
+                csv_path = _os.path.join(self.save_dir, "best_edge_probabilities.csv")
                 df.to_csv(csv_path, index=False)
                 print(f"Saved best edge probabilities to {csv_path}")
             else:
