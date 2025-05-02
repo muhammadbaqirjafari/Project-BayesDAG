@@ -158,7 +158,7 @@ def run_single_seed_experiment(args: ExperimentArguments):
     mlflow.log_metrics(running_times)
     save_json(running_times, os.path.join(model.save_dir, "running_times.json"))
 
-    _copy_results_in_aml_run(args.output_dir, args.run_context)
+    # _copy_results_in_aml_run(args.output_dir, args.run_context)
 
     return model, args.model_config
 

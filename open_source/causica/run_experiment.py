@@ -152,7 +152,11 @@ def run_experiment(
 
     kwargs_files: List[str] = []
 
+    print(f"Running {len(configs)} configs")
     for model_config, dataset_config in configs:
+        print(f"Running config: {model_config}")
+        print(f"Running dataset config: {dataset_config}")
+
         kwargs_dict = dict(
             dataset_name=dataset_name,
             data_dir=data_dir,
@@ -203,15 +207,15 @@ def run_experiment(
     # For local runs, temporary logic to extract input dirs given models_dir
     # Going forward (i.e. once we use AML pipeline for local runs),
     # inputs dirs will be explicitly specified (as they are in remote runs)
-    input_dirs = [f.path for f in os.scandir(models_dir) if f.is_dir()]
+    # input_dirs = [f.path for f in os.scandir(models_dir) if f.is_dir()]
 
-    kwargs_file = run_context.aml_step(run_aggregation, pipeline_creation_mode)(
-        input_dirs=input_dirs,
-        output_dir=models_dir,
-        experiment_name=experiment_name,
-        aml_tags=aml_tags,
-    )
-    kwargs_files.append(kwargs_file)
+    # kwargs_file = run_context.aml_step(run_aggregation, pipeline_creation_mode)(
+    #     input_dirs=input_dirs,
+    #     output_dir=models_dir,
+    #     experiment_name=experiment_name,
+    #     aml_tags=aml_tags,
+    # )
+    # kwargs_files.append(kwargs_file)
 
     if pipeline_creation_mode:
         pipeline.add_step(

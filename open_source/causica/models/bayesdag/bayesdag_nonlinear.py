@@ -453,7 +453,7 @@ class BayesDAGNonLinear(BayesDAG):
                 graphs, _ = self.get_adj_matrix(samples=M, squeeze=False)
                 probs = graphs.mean(axis=0)  # shape: num_nodes × num_nodes
 
-                import pandas as pd, os
+                import pandas as pd
                 df = pd.DataFrame(probs)
                 csv_path = _os.path.join(self.save_dir, "best_edge_probabilities.csv")
                 df.to_csv(csv_path, index=False)
