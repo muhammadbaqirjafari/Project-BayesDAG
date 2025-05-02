@@ -8,7 +8,7 @@ from sklearn.gaussian_process.kernels import RBF
 from scipy.special import logsumexp
 from sklearn import metrics as sklearn_metrics
 from ..datasets.dataset import CausalDataset
-import graphical_models as gm
+# import graphical_models as gm
 
 def threshold_metrics(predicted_graphs, gt_graphs):
     g_flat = gt_graphs.reshape(-1)
